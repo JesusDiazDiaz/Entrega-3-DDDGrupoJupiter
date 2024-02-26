@@ -1,0 +1,10 @@
+from dataclasses import field
+
+from src.auditoria.seedwork.domain.value_object import ValueObject
+
+
+
+class Characteristics(ValueObject):
+    size_sqft: float = field(default_factory=float)
+    construction_type: str = field(default_factory=str)
+    floors: int = field(default_factory=int)

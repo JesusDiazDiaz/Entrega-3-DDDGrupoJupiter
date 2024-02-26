@@ -1,0 +1,41 @@
+version: '3'
+volumes:
+  exp_postgres_data: {}
+
+networks:
+  app_net:
+    driver: bridge
+services:
+  auditoria:
+    build: .
+    container_name: auditoria
+    hostname: auditoria
+    image: auditoria/flask
+    networks:
+      - app_net
+    environment:
+      DB_NAME: app_db
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    ports:
+      - "5004:5000"
+
+  postgres:
+    image: postgres
+    networks:
+      - app_net
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_DB: app_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - exp_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 2s
+      timeout: 5s
+      retries: 5
