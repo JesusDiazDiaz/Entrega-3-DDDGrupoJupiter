@@ -1,8 +1,8 @@
 from src.auditoria.seedwork.application.services import Service
-from src.auditoria.seedwork.domain.entity import Property
 
 from .dto import PropertyDTO
 from .mapper import PropertyMapper
+from ..domain.entity import Property
 from ..domain.factory import AuditFactory
 from ..domain.repository import PropertyRepository
 from ..infrastructure.factory import RepositoryFactory

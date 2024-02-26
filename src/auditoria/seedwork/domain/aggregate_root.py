@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 
 from .entity import Entity
-from .event import Event
+from .event import DomainEvent
 
 
 @dataclass
@@ -16,10 +16,10 @@ class AggregateRoot(Entity):
 
     """
 
-    events: list[Event] = field(init=False, default_factory=list)
+    events: list[DomainEvent] = field(init=False, default_factory=list)
 
-    def add_event(self, event: Event) -> None:
+    def add_event(self, event: DomainEvent) -> None:
         self.events.append(event)
 
-    def remove_event(self, event: Event) -> None:
+    def remove_event(self, event: DomainEvent) -> None:
         self.events.remove(event)
