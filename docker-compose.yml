@@ -21,6 +21,9 @@ services:
       DB_PASSWORD: postgres
     ports:
       - "5004:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   postgres:
     image: postgres

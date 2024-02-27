@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+from src.auditoria.modules.enrequicimiento.application.commands.base import CommandBaseHandler
 from src.auditoria.modules.enrequicimiento.application.dto import PropertyDTO
 from src.auditoria.seedwork.application.commands import Command, CommandHandler
 from src.auditoria.seedwork.application.commands import execute_command as command
@@ -11,12 +12,13 @@ from src.auditoria.modules.enrequicimiento.domain.repository import PropertyRepo
 
 @dataclass
 class UpdateInformation(Command):
+    id: str
     size_sqft: float
     construction_type: str
     floors: int
 
 
-class UpdateInformationHandler(CommandHandler):
+class UpdateInformationHandler(CommandBaseHandler):
     def handle(self, command: UpdateInformation):
         property_dto = PropertyDTO(
             id=command.id,
@@ -27,7 +29,7 @@ class UpdateInformationHandler(CommandHandler):
         property: Property = self.audit_factory.create_object(property_dto, PropertyMapper())
 
         repository = self.repository_factory.create_object(PropertyRepository.__class__)
-        repository.update(property)
+        repository.update(command.id, property)
 
 
 @command.register(UpdateInformation)

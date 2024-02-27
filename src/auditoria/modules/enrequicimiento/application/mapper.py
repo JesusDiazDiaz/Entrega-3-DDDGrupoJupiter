@@ -15,8 +15,7 @@ class PropertyDTOJson(AppMap):
             id=external["id"],
             size_sqft=external["size_sqft"],
             construction_type=external["construction_type"],
-            floors=external["floors"],
-            # rental_listings=external["rental_listings"],
+            floors=external["floors"]
         )
 
     def dto_to_external(self, dto: PropertyDTO) -> dict:

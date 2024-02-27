@@ -4,10 +4,12 @@ from sqlalchemy.ext.declarative import declarative_base
 import uuid
 from sqlalchemy.dialects.postgresql import UUID
 
-Base = declarative_base()
+from src.auditoria.config.db import db
+
+Base = db.declarative_base()
 
 
-class Property(Base):
+class Property(db.Model):
     __tablename__ = 'properties'
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)

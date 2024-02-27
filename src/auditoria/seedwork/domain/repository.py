@@ -25,7 +25,7 @@ class Repository(ABC):
         pass
 
     @abstractmethod
-    def update(self, entity):
+    def update(self, id, entity):
         pass
 
 

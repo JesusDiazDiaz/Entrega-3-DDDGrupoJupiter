@@ -4,5 +4,5 @@ from .repository import Mapper
 
 class Factory(ABC):
     @abstractmethod
-    def update(self, obj: any, mapper: Mapper=None):
+    def create_object(self, obj: any, mapper: Mapper=None):
         ...
