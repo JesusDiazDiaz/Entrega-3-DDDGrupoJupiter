@@ -37,3 +37,5 @@ docker-compose build
 docker-compose up
 ```
 
+En el siguiente enlace se encuentra la documentación de los servicios expuestos por el microservicio auditoria:
+[Documentacion postman](https://documenter.getpostman.com/view/1827448/2sA2rDy1na)
