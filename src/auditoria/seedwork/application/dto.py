@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 
 @dataclass(frozen=True)
-class DTO():
+class DTO:
     ...
 
 class Mapper(ABC):

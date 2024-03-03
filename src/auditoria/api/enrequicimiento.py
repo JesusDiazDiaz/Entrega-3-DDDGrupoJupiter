@@ -9,7 +9,6 @@ from src.auditoria.seedwork.presentation import api
 from src.auditoria.seedwork.domain.exceptions import DomainException
 
 from src.auditoria.modules.enrequicimiento.application.mapper import PropertyDTOJson
-from src.auditoria.modules.enrequicimiento.application.services import PropertyService
 
 from src.auditoria.modules.enrequicimiento.application.commands.update_information import UpdateInformation
 from src.auditoria.seedwork.application.commands import execute_command

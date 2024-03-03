@@ -5,25 +5,69 @@ volumes:
 networks:
   app_net:
     driver: bridge
+  pulsar:
+    driver: bridge
 services:
+  pulsar:
+    image: apachepulsar/pulsar:3.2.0
+    container_name: pulsar
+    restart: on-failure
+    networks:
+      - pulsar
+    ports:
+      - "6650:6650"
+      - "8080:8080"
+    command: [ "bin/pulsar", "standalone" ]
+
   auditoria:
-    build: .
+    build:
+      context: .
+      dockerfile: audit.Dockerfile
     container_name: auditoria
     hostname: auditoria
-    image: auditoria/flask
     networks:
       - app_net
+      - pulsar
     environment:
       DB_NAME: app_db
       DB_HOST: postgres
       DB_PORT: 5432
       DB_USER: postgres
       DB_PASSWORD: postgres
+      BROKER_HOST: pulsar
     ports:
       - "5004:5000"
     depends_on:
+      pulsar:
+        condition: service_started
       postgres:
         condition: service_healthy
+
+  companies:
+    build:
+      context: .
+      dockerfile: companies.Dockerfile
+    container_name: companies
+    hostname: companies
+    networks:
+      - app_net
+      - pulsar
+    environment:
+      DB_NAME: app_dbd
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      BROKER_HOST: pulsar
+    ports:
+      - "5005:5000"
+    depends_on:
+      pulsar:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+      auditoria:
+        condition: service_started
 
   postgres:
     image: postgres

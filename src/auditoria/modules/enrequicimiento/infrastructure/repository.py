@@ -32,7 +32,7 @@ class PropertyRepositoryPostgres(PropertyRepository):
         properties = db.session.query(PropertyDto).all()
         return [self.property_factory.create_object(property, PropertyMapper()) for property in properties]
 
-    def update(self, id, property: Property) -> Property:
+    def update(self, id, property: Property) -> None:
         LOGGER.info(f"update property: {property}")
 
         property_dto = db.session.query(PropertyDto).get(id)
@@ -43,6 +43,8 @@ class PropertyRepositoryPostgres(PropertyRepository):
         property_dto.construction_type = property.characteristics.construction_type
         property_dto.floors = property.characteristics.floors
 
-        db.session.commit()
+        db.session.add(property_dto)
 
-        return self.property_factory.create_object(property_dto, PropertyMapper())
+        # db.session.commit()
+
+        # return self.property_factory.create_object(property_dto, PropertyMapper())

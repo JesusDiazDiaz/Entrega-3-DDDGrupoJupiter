@@ -8,6 +8,7 @@ from src.auditoria.modules.enrequicimiento.domain.entity import Property
 
 from src.auditoria.modules.enrequicimiento.application.mapper import PropertyMapper
 from src.auditoria.modules.enrequicimiento.domain.repository import PropertyRepository
+from src.auditoria.seedwork.infrastructure.uow import UnitOfWorkPort
 
 
 @dataclass
@@ -27,9 +28,15 @@ class UpdateInformationHandler(CommandBaseHandler):
             floors=command.floors
         )
         property: Property = self.audit_factory.create_object(property_dto, PropertyMapper())
+        # Add event domain
+        property.enrich_information(property)
 
         repository = self.repository_factory.create_object(PropertyRepository.__class__)
-        repository.update(command.id, property)
+        # repository.update(command.id, property)
+
+        UnitOfWorkPort.register_batch(repository.update, command.id, property)
+        UnitOfWorkPort.commit()
+
 
 
 @command.register(UpdateInformation)
