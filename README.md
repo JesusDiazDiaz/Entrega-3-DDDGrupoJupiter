@@ -1,14 +1,15 @@
-# Entrega 3 - Diseño de la experimentacion y POC de Servicios
+# Entrega 4 - Diseño de la experimentacion y POC de Servicios
 GRUPO JUPITER
 
 Repositorio con código base para el uso de un sistema usando el patrón CQRS y usando eventos de dominio 
 Estamos simulado un atributo de calidad de escalabilidad con un escenario de actualizacion de caracteristicas, segun se describe en grafica anexa:
 ![](files/atributo-calidad.png)
-![](files/diagrama-arquitectura.png)
+![diagrama CyC solucion](https://github.com/JesusDiazDiaz/Entrega-3-DDDGrupoJupiter/assets/111446386/769e4823-2b8c-4253-863d-36d03015ef42)
+
 
 ## Estructura del proyecto
 
-Este repositorio sigue la siguiente estructura, donde solo estamos trabajando con el microservicio auditoria:
+Este repositorio sigue la siguiente estructura, hemos incorporado 4 microservicios: 1. Auditoria (enriquecimiento de informacion por auditores), 2. Compañias (son las vistas de los clientes), 3. Pipeline (detecta la completitud de informacion que recoge propiedades), 4. Propiedades (hace la busqueda e ingesta de datos de las propiedades en fuentes externas):
 
 
 - **api**: En este módulo tenemos el API de `enrequecimiento.py` el cual cuenta con dos endpoints: `/audit` y `audit`, los cuales por detrás de escenas usan un patrón CQRS como la base de su comunicación.
