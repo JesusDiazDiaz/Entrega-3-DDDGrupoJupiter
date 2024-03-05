@@ -7,13 +7,6 @@ from flask import Flask
 LOGGER = logging.getLogger()
 
 
-def consumers(app):
-    import threading
-    import src.properties.modules.information.infrastructure.consumers as information
-
-    threading.Thread(target=information.subscribe_to_events, args=(app,)).start()
-
-
 def create_app():
     dictConfig({
         'version': 1,
@@ -32,10 +25,23 @@ def create_app():
     })
 
     app = Flask(__name__, instance_relative_config=True)
+    app.secret_key = 'v*1cp%q_v61g%b-&72i90top==@$!#&m&#k+$0+iq5ildlo68b'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
 
-    consumers(app)
+    from src.properties.config.db import init_db
+    init_db(app)
+
+    from src.properties.config.db import db
 
     LOGGER.info("Properties App created")
+
+    import src.properties.modules.listings.infrastructure.dto
+    from . import main
+
+    with app.app_context():
+        db.create_all()
+
+    app.register_blueprint(main.bp)
 
     @app.route("/health")
     def health():

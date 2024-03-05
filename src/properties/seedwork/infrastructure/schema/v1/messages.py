@@ -2,7 +2,7 @@ import uuid
 
 from pulsar.schema import *
 
-from src.properties.seedwork.infrastructure.utils import time_millis
+from src.auditoria.seedwork.infrastructure.utils import time_millis
 
 
 class Message(Record):
