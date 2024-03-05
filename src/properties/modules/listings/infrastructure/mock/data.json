@@ -1,0 +1,19 @@
+[
+  {
+    "property_id": "5f2e89f1-27ef-4b3a-80ea-8f68c609fa3a",
+    "address": {
+      "street": "123 Main St",
+      "city": "Cityville",
+      "state": "ST",
+      "zip_code": "12345"
+    },
+    "size_sqft": 2000,
+    "construction_type": "Brick",
+    "floors": 2,
+    "year_built": 2005,
+    "num_bedrooms": 3,
+    "num_bathrooms": 2.5,
+    "garage": true,
+    "has_pool": false
+  }
+]

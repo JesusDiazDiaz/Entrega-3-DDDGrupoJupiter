@@ -69,6 +69,58 @@ services:
       auditoria:
         condition: service_started
 
+  properties:
+    build:
+      context: .
+      dockerfile: properties.Dockerfile
+    container_name: properties
+    hostname: properties
+    networks:
+      - app_net
+      - pulsar
+    environment:
+      DB_NAME: app_dbd
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      BROKER_HOST: pulsar
+    ports:
+      - "5006:5000"
+    depends_on:
+      pulsar:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+      auditoria:
+        condition: service_started
+
+  pipeline:
+    build:
+      context: .
+      dockerfile: pipeline.Dockerfile
+    container_name: pipeline
+    hostname: pipeline
+    networks:
+      - app_net
+      - pulsar
+    environment:
+      DB_NAME: app_dbd
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      BROKER_HOST: pulsar
+    ports:
+      - "5007:5000"
+    depends_on:
+      pulsar:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+      auditoria:
+        condition: service_started
+
   postgres:
     image: postgres
     networks:

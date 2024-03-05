@@ -1,4 +1,4 @@
-from src.companies.seedwork.infrastructure.schema.v1.messages import Message
+from src.auditoria.seedwork.infrastructure.schema.v1.messages import Message
 
 
 class IntegrationEvent(Message):
