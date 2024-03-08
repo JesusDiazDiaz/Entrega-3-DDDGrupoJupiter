@@ -1,6 +1,7 @@
 version: '3'
 volumes:
   exp_postgres_data: {}
+  datalake_postgres_data: {}
 
 networks:
   app_net:
@@ -133,6 +134,24 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - exp_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 2s
+      timeout: 5s
+      retries: 5
+
+  datalake:
+    image: postgres
+    networks:
+      - app_net
+    ports:
+      - "5436:5432"
+    environment:
+      POSTGRES_DB: datalake
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - datalake_postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 2s
