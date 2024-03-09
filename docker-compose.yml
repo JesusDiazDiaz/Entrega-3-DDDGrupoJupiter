@@ -131,3 +131,33 @@
         interval: 2s
         timeout: 5s
         retries: 5
+
+    pipeline:
+      build:
+        context: .
+        dockerfile: pipeline.Dockerfile
+      container_name: pipeline
+      hostname: pipeline
+      networks:
+        - app_net
+        - pulsar
+      environment:
+        DB_NAME: datalake
+        DB_HOST: datalake
+        DB_NAME_RAICES: app_db
+        DB_HOST_RAICES: postgres
+        DB_PORT: 5432
+        DB_USER: postgres
+        DB_PASSWORD: postgres
+        BROKER_HOST: pulsar
+      ports:
+        - "5007:5000"
+      depends_on:
+        pulsar:
+          condition: service_started
+        datalake:
+          condition: service_healthy
+        auditoria:
+          condition: service_started
+        postgres:
+          condition: service_healthy
