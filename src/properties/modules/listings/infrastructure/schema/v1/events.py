@@ -1,14 +1,14 @@
 import uuid
 
 from pulsar.schema import *
-from src.auditoria.seedwork.infrastructure.schema.v1.events import IntegrationEvent
+from src.auditoria.seedwork.infrastructure.schema.v1.events import DomainEvent
 from src.auditoria.seedwork.infrastructure.utils import time_millis
 
 class ListingDataRecoveredPayload(Record):
     property_id = String()
 
 
-class ListingDataRecoveredEvent(IntegrationEvent):
+class ListingDataRecoveredEvent(DomainEvent):
     id = String(default=str(uuid.uuid4()))
     time = Long()
     ingestion = Long(default=time_millis())

@@ -1,9 +1,9 @@
 import uuid
 from dataclasses import dataclass
 
-from src.properties.seedwork.domain.event import IntegrationEvent
+from src.properties.seedwork.domain.event import DomainEvent
 
-class ListingEvent(IntegrationEvent):
+class ListingEvent(DomainEvent):
     ...
 
 
