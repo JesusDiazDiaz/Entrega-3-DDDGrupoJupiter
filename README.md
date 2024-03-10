@@ -1,4 +1,4 @@
-# Entrega 4 - Diseño de la experimentacion y POC de Servicios
+# Entrega 5 - Diseño de la experimentacion y POC de Servicios
 GRUPO JUPITER
 
 Repositorio con código base para el uso de un sistema usando el patrón CQRS y usando eventos de dominio 

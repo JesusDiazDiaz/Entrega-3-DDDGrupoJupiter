@@ -30,8 +30,7 @@ def subscribe_to_events(app=None):
         while not subscribed:
             try:
                 consumer = client.subscribe(
-                    'property-events',
-                    'alpes-sub-events',
+                    'auditoria-events',
                     schema=AvroSchema(EnrichedInformationEvent)
                 )
                 subscribed = True
