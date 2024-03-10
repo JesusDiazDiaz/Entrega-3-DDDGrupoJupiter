@@ -9,7 +9,7 @@ LOGGER = logging.getLogger()
 
 def consumers(app):
     import threading
-    import src.pipeline.modules.information.infrastructure.consumers as information
+    import src.pipeline.modules.validation.infrastructure.consumers as information
 
     threading.Thread(target=information.subscribe_to_events, args=(app,)).start()
 
