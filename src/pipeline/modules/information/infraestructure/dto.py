@@ -1,9 +1,9 @@
 from sqlalchemy import Column, JSON
-from src.pipeline.config.db import db_dataleak, db_roots
+from src.pipeline.config.db import db_datalake, db_roots
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 
-class ListingDatalake(db_dataleak.Model):
+class ListingDatalake(db_datalake.Model):
     __tablename__ = 'ListingDataLake'
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)

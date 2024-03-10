@@ -1,30 +1,44 @@
+from abc import ABC, abstractmethod
 from uuid import UUID
 
-from src.pipeline.config.db import db_dataleak
+from .entity import Entity
 
 
-class ListingRepositoryPostgres(ListingRepository):
+class Repository(ABC):
     def __init__(self):
-        self._properties_factory = PropertiesFactory()
+        pass
 
-    @property
-    def properties_factory(self):
-        return self._properties_factory
-
+    @abstractmethod
     def add(self, entity):
-        listing_dto = self.properties_factory.create_object(entity, ListingMapper())
-        db.session.add(listing_dto)
-        db.session.commit()
+        pass
 
+    @abstractmethod
     def get(self, id: UUID):
-        db_dataleak.session.get(id)
-        raise NotImplementedError
+        pass
 
-    def remove(self, entity):
-        raise NotImplementedError
-
+    @abstractmethod
     def get_all(self):
-        raise NotImplementedError
+        pass
 
-    def update(self, id, listing) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def remove(self, entity):
+        pass
+
+    @abstractmethod
+    def update(self, id, entity):
+        pass
+
+
+
+class Mapper(ABC):
+    @abstractmethod
+    def get_type(self) -> type:
+        pass
+
+    @abstractmethod
+    def entity_to_dto(self, entity: Entity):
+        pass
+
+    @abstractmethod
+    def dto_to_entity(self, dto: any) -> Entity:
+        pass
