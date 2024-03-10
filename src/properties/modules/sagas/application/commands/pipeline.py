@@ -1,0 +1,9 @@
+
+class ValidationRegister():
+    ...
+
+class ValidationDeactivate():
+    ...
+
+class ValidationApproved():
+    ...

@@ -27,6 +27,16 @@ Cada Microservicios tiene la siguiente estructura de carpetas:
 - **seedwork/infraestructure/**: 
 - **seedwork/presentation/**: 
 
+## SAGA
+Hemos definido como transaccion larga, el flujo que va desde el microservicio Properties que solicita una ingesta de datos externos (se tiene un mock.json)
+este escribe los datos en el datalake (diseño datos distribuido), y al mismo tiempo notifica mediante un evento al microservicio pipeline a traves de un broker 
+de eventos con Pulsar, en este caso el pipeline hace una validacion binaria de presencia o no de datos y desde alli notifica la exactitud
+de los datos al microservicio Auditoria, quien termina escribiendo el enriquecimiento de datos que aplique en otra base de datos donde se tienen 
+los datos estructurados, base de datos bienes raices, en este flujo de 3 microservicios definimos la SAGA, de tal forma que escogimos
+el microservicio Properties como Orquestador, en caso de que uno de los pasos se corrompa, se ejecutaria un rollback de la transaccion 
+en cada microservicio involucrado
+![img_1.png](img_1.png)
+
 ## Propiedades de los Alpes
 ### Ejecutar Aplicación
 

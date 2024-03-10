@@ -1,0 +1,9 @@
+
+class EnrichmentRegister():
+    ...
+
+class EnrichmentDeactivate():
+    ...
+
+class EnrichmentValidation():
+    ...

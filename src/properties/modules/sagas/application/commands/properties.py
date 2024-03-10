@@ -1,0 +1,9 @@
+
+class PropertiesRegister():
+    ...
+
+class PropertiesDeactivate():
+    ...
+
+class PropertiesValidation():
+    ...

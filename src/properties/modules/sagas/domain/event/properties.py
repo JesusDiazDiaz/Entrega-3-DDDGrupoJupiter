@@ -3,29 +3,25 @@ from dataclasses import dataclass, field
 from properties.seedwork.domain.event import (DomainEvent)
 from datetime import datetime
 
-class EventoPago(DomainEvent):
+
+class PropertiesEvent(DomainEvent):
     ...
 
-@dataclass
-class ReservaPagada(EventoPago):
-    id_reserva: uuid.UUID = None
-    id_correlacion: str = None
-    monto: float = None
-    monto_vat: float = None
-    fecha_actualizacion: datetime = None
 
 @dataclass
-class PagoFallido(EventoPago):
-    id_reserva: uuid.UUID = None
-    id_correlacion: str = None
-    monto: float = None
-    monto_vat: float = None
-    fecha_actualizacion: datetime = None
+class DatalakeFileCreated(PropertiesEvent):
+    property_id: uuid.UUID = None
+    estado: str = None
+    fecha_creacion: datetime = None
+
 
 @dataclass
-class PagoRevertido(EventoPago):
-    id_reserva: uuid.UUID = None
-    id_correlacion: str = None
-    monto: float = None
-    monto_vat: float = None
+class DatalakeFileCanceled(PropertiesEvent):
+    property_id: uuid.UUID = None
+    fecha_actualizacion: datetime = None
+
+
+@dataclass
+class DatalakeFileFailed(PropertiesEvent):
+    property_id: uuid.UUID = None
     fecha_actualizacion: datetime = None
