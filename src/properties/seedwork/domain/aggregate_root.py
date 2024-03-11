@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 
 from .entity import Entity
-from .event import IntegrationEvent
+from .event import IntegrationEvent , DomainEvent
 
 
 @dataclass
