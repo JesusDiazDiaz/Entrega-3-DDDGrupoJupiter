@@ -9,7 +9,7 @@ LOGGER = logging.getLogger()
 
 def consumers(app):
     import threading
-    import src.pipeline.modules.information.infrastructure.consumers as information
+    import src.pipeline.modules.validation.infrastructure.consumers as information
 
     threading.Thread(target=information.subscribe_to_events, args=(app,)).start()
 
@@ -32,6 +32,12 @@ def create_app():
     })
 
     app = Flask(__name__, instance_relative_config=True)
+    app.config['SQLALCHEMY_DATABASE_URI_DATALAKE'] = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+    app.config['SQLALCHEMY_DATABASE_URI_ROOTS'] = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST_RAICES')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+
+    from src.pipeline.config.db import init_db_datalake, init_db_raices
+    init_db_datalake(app)
+    init_db_raices(app)
 
     consumers(app)
 

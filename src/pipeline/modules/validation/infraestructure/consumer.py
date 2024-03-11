@@ -5,7 +5,7 @@ import pulsar, _pulsar
 from _pulsar import PulsarException
 from pulsar.schema import *
 
-from src.pipeline.modules.information.infrastructure.schema.v1.events import EnrichedInformationEvent
+from src.pipeline.modules.validation.infrastructure.schema.v1.events import EnrichedInformationEvent
 from src.pipeline.seedwork import utils
 
 
