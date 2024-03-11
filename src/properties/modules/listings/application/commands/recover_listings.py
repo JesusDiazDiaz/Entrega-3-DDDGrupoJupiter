@@ -10,6 +10,7 @@ from src.properties.modules.listings.infrastructure.mapper import ListingMapper
 from src.properties.modules.listings.infrastructure.adapters import ListingsAPIAdapter
 from src.properties.seedwork.application.commands import Command
 from src.properties.seedwork.application.commands import execute_command as command
+from src.properties.seedwork.infrastructure.uow import UnitOfWorkPort
 
 
 LOGGER = logging.getLogger()
@@ -37,10 +38,13 @@ class RecoverListingsHandler(CommandBaseHandler):
         listing.data_recovered(listing)
 
         repository = self.repository_factory.create_object(ListingRepository.__class__)
-        repository.add(listing)
 
-        for event in listing.events:
-            dispatcher.send(signal=f'{type(event).__name__}Integration', event=event)
+        UnitOfWorkPort.register_batch(repository.get,repository)
+        UnitOfWorkPort.savepoint()
+        UnitOfWorkPort.commit()
+       
+
+        
 
 
 @command.register(RecoverListings)
