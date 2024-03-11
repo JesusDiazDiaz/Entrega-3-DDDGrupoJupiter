@@ -35,7 +35,7 @@ de los datos al microservicio Auditoria, quien termina escribiendo el enriquecim
 los datos estructurados, base de datos bienes raices, en este flujo de 3 microservicios definimos la SAGA, de tal forma que escogimos
 el microservicio Properties como Orquestador, en caso de que uno de los pasos se corrompa, se ejecutaria un rollback de la transaccion 
 en cada microservicio involucrado
-![img_1.png](img_1.png)
+![img_1.png](files/img_1.png)
 
 ## Propiedades de los Alpes
 ### Ejecutar Aplicación
