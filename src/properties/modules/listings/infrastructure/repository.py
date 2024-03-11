@@ -4,6 +4,7 @@ from src.properties.modules.listings.domain.repository import ListingRepository
 from src.properties.modules.listings.domain.factory import PropertiesFactory
 from src.properties.config.db import db
 from .mapper import ListingMapper
+from ..domain.entity import Listing
 
 
 class ListingRepositoryPostgres(ListingRepository):
@@ -14,10 +15,9 @@ class ListingRepositoryPostgres(ListingRepository):
     def properties_factory(self):
         return self._properties_factory
 
-    def add(self, entity):
+    def add(self, entity: Listing):
         listing_dto = self.properties_factory.create_object(entity, ListingMapper())
         db.session.add(listing_dto)
-        db.session.commit()
 
     def get(self, id: UUID):
         raise NotImplementedError

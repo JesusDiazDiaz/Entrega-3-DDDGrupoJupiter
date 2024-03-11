@@ -1,6 +1,5 @@
-
+from src.pipeline.seedwork.utils import unix_time_millis
 from .dto import ListingDatalake as ListingDTO
-
 
 
 class ListingDataRecoveredEventMapper(Mapper):
@@ -30,9 +29,9 @@ class ListingDataRecoveredEventMapper(Mapper):
             integration_event.id = str(event.id)
             integration_event.time = int(unix_time_millis(event.event_date))
             integration_event.specversion = str(version)
-            integration_event.type = 'ListingDataRecovered'
+            integration_event.type = 'CleanedData'
             integration_event.datacontenttype = 'AVRO'
-            integration_event.service_name = 'audit'
+            integration_event.service_name = 'pipeline'
 
             integration_event.data = payload
             return integration_event
@@ -59,6 +58,7 @@ class ListingDataRecoveredEventMapper(Mapper):
 
     def get_type(self) -> type:
         return ListingDataRecoveredEvent.__class__
+
 
 class ListingMapper(Mapper):
     def entity_to_dto(self, entity: Listing) -> ListingDTO:

@@ -5,7 +5,7 @@ import pulsar, _pulsar
 from _pulsar import PulsarException
 from pulsar.schema import *
 
-from src.pipeline.modules.validation.infrastructure.schema.v1.events import EnrichedInformationEvent
+from src.pipeline.modules.validation.infrastructure.schema.v1.events import ListingDataRecoveredEvent
 from src.pipeline.seedwork import utils
 
 
@@ -30,16 +30,24 @@ def subscribe_to_events(app=None):
         while not subscribed:
             try:
                 consumer = client.subscribe(
-                    'property-events',
-                    'alpes-sub-events',
-                    schema=AvroSchema(EnrichedInformationEvent)
+                    'properties-events',
+                    'pipeline-properties-sub-events',
+                    schema=AvroSchema(ListingDataRecoveredEvent)
                 )
                 subscribed = True
+            except _pulsar.ConnectError:
+                LOGGER.error("Subscription failed. Retrying...")
+                time.sleep(5)
+                connected = False
+                subscribed = False
             except _pulsar.TopicNotFound:
                 LOGGER.error("Topic not found. Retrying...")
                 time.sleep(5)  # Wait for 5 seconds before retrying
 
         while True:
+            if not connected or not subscribed:
+                break
+
             try:
                 msg = consumer.receive()
             except _pulsar.AlreadyClosed:
@@ -51,6 +59,8 @@ def subscribe_to_events(app=None):
             else:
                 try:
                     data = msg.value()
+
+                    # TODO: Add command here?
 
                     LOGGER.info(f"📩 Received message: {data}")
                     consumer.acknowledge(msg)

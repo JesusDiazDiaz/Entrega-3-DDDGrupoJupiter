@@ -103,6 +103,7 @@
         DB_PORT: 5432
         DB_USER: postgres
         DB_PASSWORD: postgres
+
         BROKER_HOST: pulsar
       ports:
         - "5006:5000"
@@ -142,13 +143,13 @@
         - app_net
         - pulsar
       environment:
-        DB_NAME: datalake
-        DB_HOST: datalake
-        DB_NAME_RAICES: app_db
-        DB_HOST_RAICES: postgres
         DB_PORT: 5432
         DB_USER: postgres
         DB_PASSWORD: postgres
+        DATALAKE_DB_HOST: postgres
+        DATALAKE_DB_NAME: datalake
+        MAIN_DB_HOST: postgres
+        MAIN_DB_NAME: datalake
         BROKER_HOST: pulsar
       ports:
         - "5007:5000"

@@ -12,5 +12,5 @@ class PropertyEvent(DomainEvent):
 
 # TODO: Add Fields
 @dataclass
-class EnrichedInformation(PropertyEvent):
+class CleanedData(PropertyEvent):
     property_id: uuid.UUID = None

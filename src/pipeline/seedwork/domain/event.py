@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 import uuid
 
-from .exceptions import ImmutableIdException
+from .exception import ImmutableIdException
 from .rules import EntityIdIsImmutable
 
 

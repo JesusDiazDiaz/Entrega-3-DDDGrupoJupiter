@@ -1,4 +1,5 @@
 from src.pipeline.modules.validation.domain.factory import AuditFactory
+from src.pipeline.modules.validation.infrastructure.factory import RepositoryFactory
 from src.pipeline.seedwork.application.commands import CommandHandler
 
 

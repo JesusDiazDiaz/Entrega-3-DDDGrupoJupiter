@@ -5,8 +5,8 @@ import pulsar, _pulsar
 from _pulsar import PulsarException
 from pulsar.schema import *
 
-from src.companies.modules.information.infrastructure.schema.v1.events import EnrichedInformationEvent
-from src.companies.seedwork import utils
+from src.pipeline.modules.information.infrastructure.schema.v1.events import EnrichedInformationEvent
+from src.pipeline.seedwork import utils
 
 
 LOGGER = logging.getLogger()
@@ -30,9 +30,9 @@ def subscribe_to_events(app=None):
         while not subscribed:
             try:
                 consumer = client.subscribe(
-                    'property-events',
+                    'properties-events',
                     schema=AvroSchema(EnrichedInformationEvent),
-                    subscription_name='companies-subscription',
+                    subscription_name='pipeline-subscription',
                 )
                 subscribed = True
             except _pulsar.ConnectError:
