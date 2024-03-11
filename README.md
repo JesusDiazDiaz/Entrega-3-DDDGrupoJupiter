@@ -34,8 +34,23 @@ de eventos con Pulsar, en este caso el pipeline hace una validacion binaria de p
 de los datos al microservicio Auditoria, quien termina escribiendo el enriquecimiento de datos que aplique en otra base de datos donde se tienen 
 los datos estructurados, base de datos bienes raices, en este flujo de 3 microservicios definimos la SAGA, de tal forma que escogimos
 el microservicio Properties como Orquestador, en caso de que uno de los pasos se corrompa, se ejecutaria un rollback de la transaccion 
-en cada microservicio involucrado
+en cada microservicio involucrado:
+
+### Estructura SAGA
+- properties/modules/sagas/application/commands: Tiene los diferentes comandos que impactan cada microservicio involucrado en la SAGA: auditoria, propiedades y pipeline
+- properties/modules/sagas/application/coordinators/saga_propiedades.py: se encuentran los pasos que reflejan la SAGA, donde se llaman los comandos, eventos y errores y se ejecuta la coordinacion 
+
 ![img_1.png](files/img_1.png)
+
+## BFF
+Desarrollamos un BFF que conecta un UI que creamos para los auditores con el microservicio de auditores, se puede observar en las carpetas:
+- BFF_auditoria/main.py se encuentra el API que ejecuta una funcion y esta pendiente de los mensajes que se publican en el topico pipeline-events
+- UI_auditoria (index.html)
+
+# Estrategia de bases de datos
+Implementamos una estrategia hibrida con 2 bases de datos: Datalake (ingesta de datos crudos externa) y bd bienes raices (datos validados y enriquecidos),
+las bases de datos son compartidas por diferentes microservicios: companias, pipeline y auditoria se conectan a bd bienes raices
+pero datalake se conecta a propiedades y pipeline para el flujo de datos crudos, comparten la misma tabla en la base de datos
 
 ## Propiedades de los Alpes
 ### Ejecutar Aplicación
