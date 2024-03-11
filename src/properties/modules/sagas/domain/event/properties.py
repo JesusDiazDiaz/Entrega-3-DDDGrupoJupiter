@@ -1,7 +1,10 @@
 from __future__ import annotations
+
+import uuid
 from dataclasses import dataclass, field
-from properties.seedwork.domain.event import (DomainEvent)
 from datetime import datetime
+
+from src.properties.seedwork.domain.event import DomainEvent
 
 
 class PropertiesEvent(DomainEvent):

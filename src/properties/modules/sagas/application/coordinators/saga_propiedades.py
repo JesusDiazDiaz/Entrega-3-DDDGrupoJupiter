@@ -1,9 +1,16 @@
+from src.properties.modules.sagas.domain.event.auditoria import DataEnrichmentCreated, DataEnrichmentFailed, \
+    DataEnrichmentCanceled
+from src.properties.modules.sagas.domain.event.pipeline import DataValidationCreated, DataValidationFailed, \
+    DataValidationCanceled
+from src.properties.modules.sagas.domain.event.properties import DatalakeFileCreated, DatalakeFileFailed, \
+    DatalakeFileCanceled
 from src.properties.seedwork.application.sagas import CoordinadorOrquestacion, Transaccion, Inicio, Fin
 from src.properties.seedwork.application.commands import Command
 from src.properties.seedwork.domain.event import DomainEvent
 
-from src.properties.modules.sagas.application.commands.properties import PropertiesRegistry, PropertiesDeactivate
-from src.properties.modules.sagas.application.commands.pipeline import ValidationRegister, ValidationDeactivate
+from src.properties.modules.sagas.application.commands.properties import PropertiesDeactivate
+from src.properties.modules.sagas.application.commands.pipeline import ValidationRegister, ValidationDeactivate, \
+    CreateDatalakeFile, CreateValidation, CreateEnrichment
 from src.properties.modules.sagas.application.commands.auditoria import EnrichmentRegister, EnrichmentDeactivate
 
 
@@ -24,7 +31,7 @@ class CoordinadorIngesta(CoordinadorOrquestacion):
     def iniciar(self):
         self.persistir_en_saga_log(self.pasos[0])
 
-    def terminar():
+    def terminar(self):
         self.persistir_en_saga_log(self.pasos[-1])
 
     def persistir_en_saga_log(self, mensaje):
