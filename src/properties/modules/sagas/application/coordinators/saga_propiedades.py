@@ -28,18 +28,13 @@ class CoordinadorIngesta(CoordinadorOrquestacion):
         self.persistir_en_saga_log(self.pasos[-1])
 
     def persistir_en_saga_log(self, mensaje):
-        # TODO Persistir estado en DB
-        # Probablemente usted podría usar un repositorio para ello
+
         ...
 
     def construir_comando(self, evento: DomainEvent, tipo_comando: type):
-        # TODO Transforma un evento en la entrada de un comando
-        # Por ejemplo si el evento que llega es ReservaCreada y el tipo_comando es PagarReserva
-        # Debemos usar los atributos de ReservaCreada para crear el comando PagarReserva
+
         ...
 
-
-# TODO Agregue un Listener/Handler para que se puedan redireccionar eventos de domain
 def oir_mensaje(mensaje):
     if isinstance(mensaje, DomainEvent):
         coordinador = CoordinadorIngesta()
