@@ -44,6 +44,33 @@
         postgres:
           condition: service_healthy
 
+    bff_auditoria:
+      build:
+        context: .
+        dockerfile: bff_audit.Dockerfile
+      container_name: bff_auditoria
+      hostname: bff_auditoria
+      networks:
+        - app_net
+        - pulsar
+      environment:
+        BROKER_HOST: pulsar
+      ports:
+        - "5008:5000"
+      depends_on:
+        pulsar:
+          condition: service_started
+
+    ui_auditoria:
+      build:
+        context: .
+        dockerfile: ui.Dockerfile
+      container_name: ui_auditoria
+      ports:
+        - "5009:80"
+      networks:
+        - app_net
+
     companies:
       build:
         context: .
