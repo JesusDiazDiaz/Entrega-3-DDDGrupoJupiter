@@ -39,7 +39,7 @@ class RecoverListingsHandler(CommandBaseHandler):
 
         repository = self.repository_factory.create_object(ListingRepository.__class__)
 
-        UnitOfWorkPort.register_batch(repository.get,repository)
+        UnitOfWorkPort.register_batch(repository.add,repository)
         UnitOfWorkPort.savepoint()
         UnitOfWorkPort.commit()
        
